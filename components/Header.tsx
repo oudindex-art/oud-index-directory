@@ -5,10 +5,16 @@ export default async function Header() {
   const supabase = createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
-  let role: string | null = null;
+  let isAdmin = false;
+  let isMerchant = false;
   if (user) {
-    const { data } = await supabase.from("profiles").select("role").eq("id", user.id).single();
-    role = data?.role ?? null;
+    const { data } = await supabase
+      .from("profiles")
+      .select("is_admin, is_merchant")
+      .eq("id", user.id)
+      .single();
+    isAdmin = data?.is_admin ?? false;
+    isMerchant = data?.is_merchant ?? false;
   }
 
   return (
@@ -34,7 +40,7 @@ export default async function Header() {
         </Link>
 
         <nav className="nav-links">
-          <Link href="/">الأسعار</Link>
+          <Link href="https://oudindex.com">الأسعار</Link>
           <Link href="/" className="on">دليل التجار</Link>
           <Link href="/#how">كيف يعمل؟</Link>
         </nav>
@@ -43,14 +49,21 @@ export default async function Header() {
           {!user ? (
             <>
               <Link href="/login" className="btn btn-ghost">دخول</Link>
-              <Link href="/register" className="btn">أضف متجرك</Link>
+              <Link href="/register?merchant=1" className="btn">أضف متجرك</Link>
             </>
           ) : (
             <>
-              {role === "admin" && (
-                <Link href="/admin" className="btn btn-ghost">لوحة الأدمن</Link>
+              {isAdmin && (
+                <Link href="/admin" className="btn btn-ghost">الأدمن</Link>
               )}
-              <Link href="/dashboard" className="btn">لوحة التحكم</Link>
+              <Link href="/dashboard" className="btn btn-ghost">
+                {isMerchant ? "متجري" : "حسابي"}
+              </Link>
+              <form action="/auth/signout" method="post" style={{ display: "inline" }}>
+                <button type="submit" className="btn" style={{ borderColor: "var(--down)", color: "var(--down)" }}>
+                  خروج
+                </button>
+              </form>
             </>
           )}
         </div>

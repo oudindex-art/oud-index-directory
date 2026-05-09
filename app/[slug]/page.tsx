@@ -1,53 +1,50 @@
-// صفحة التاجر الفردية — مع SSR و Schema markup كامل
+// صفحة التاجر الفردية — مع SSR و Schema markup كامل + نموذج التقييم
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import ReviewCard from "@/components/ReviewCard";
+import ReviewForm from "@/components/ReviewForm";
 import type { Merchant, Review } from "@/lib/supabase/types";
 
 export const revalidate = 60;
 
-// توليد metadata ديناميكي للSEO
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const supabase = createClient();
-  const { data: merchant } = await supabase
-    .from("merchants")
-    .select("*")
-    .eq("slug", params.slug)
-    .single();
-
+  const { data: merchant } = await supabase.from("merchants").select("*").eq("slug", params.slug).single();
   if (!merchant) return { title: "تاجر غير موجود" };
-
   const title = `${merchant.name_ar} · ${merchant.country}`;
   const description = merchant.description_ar
     || `استعرض تقييمات ${merchant.name_ar} من ${merchant.country}، تخصصاته في ${merchant.types?.join("، ")}، وتجارب العملاء الحقيقية.`;
-
   return {
-    title,
-    description,
+    title, description,
     alternates: { canonical: `/${merchant.slug}` },
-    openGraph: {
-      title: `${merchant.name_ar} · Oud Index`,
-      description,
-      url: `/${merchant.slug}`,
-    },
+    openGraph: { title: `${merchant.name_ar} · Oud Index`, description, url: `/${merchant.slug}` },
   };
 }
 
 export default async function MerchantPage({ params }: { params: { slug: string } }) {
   const supabase = createClient();
 
-  // جلب التاجر
-  const { data: merchant } = await supabase
-    .from("merchants")
-    .select("*")
-    .eq("slug", params.slug)
-    .single();
-
+  const { data: merchant } = await supabase.from("merchants").select("*").eq("slug", params.slug).single();
   if (!merchant) notFound();
 
-  // جلب التقييمات
+  const { data: { user } } = await supabase.auth.getUser();
+
+  let reviewerName = "";
+  let userHasReviewed = false;
+  if (user) {
+    const { data: profile } = await supabase.from("profiles").select("name, full_name").eq("id", user.id).single();
+    reviewerName = (profile as any)?.full_name || (profile as any)?.name || user.email?.split("@")[0] || "";
+    const { data: existingReview } = await supabase
+      .from("reviews")
+      .select("id")
+      .eq("merchant_id", merchant.id)
+      .eq("reviewer_id", user.id)
+      .maybeSingle();
+    userHasReviewed = !!existingReview;
+  }
+
   const { data: reviewsData } = await supabase
     .from("reviews")
     .select("*")
@@ -58,14 +55,13 @@ export default async function MerchantPage({ params }: { params: { slug: string 
   const reviews = (reviewsData ?? []) as Review[];
   const m = merchant as Merchant;
 
-  // Schema.org markup للSEO (Rich Results في قوقل)
   const schemaOrg = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     name: m.name_ar,
     alternateName: m.name_en || undefined,
     description: m.description_ar,
-    url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://oudindex.com"}/${m.slug}`,
+    url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://oudindex.com"}/directory/${m.slug}`,
     address: {
       "@type": "PostalAddress",
       addressCountry: m.country_code || m.country,
@@ -75,20 +71,14 @@ export default async function MerchantPage({ params }: { params: { slug: string 
       "@type": "AggregateRating",
       ratingValue: m.average_rating,
       reviewCount: m.reviews_count,
-      bestRating: 5,
-      worstRating: 1,
+      bestRating: 5, worstRating: 1,
     } : undefined,
     review: reviews.slice(0, 10).map((r) => ({
       "@type": "Review",
       author: { "@type": "Person", name: r.reviewer_name },
       datePublished: r.created_at,
       reviewBody: r.text,
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: r.rating,
-        bestRating: 5,
-        worstRating: 1,
-      },
+      reviewRating: { "@type": "Rating", ratingValue: r.rating, bestRating: 5, worstRating: 1 },
     })),
     foundingDate: m.founded_year ? `${m.founded_year}-01-01` : undefined,
   };
@@ -97,13 +87,10 @@ export default async function MerchantPage({ params }: { params: { slug: string 
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrg) }} />
 
-      {/* HERO */}
       <section className="merchant-hero">
         <div className="container">
           <div style={{ marginBottom: 16 }}>
-            <Link href="/" style={{ color: "var(--dim)", fontSize: 12, letterSpacing: "0.1em" }}>
-              ← دليل التجار
-            </Link>
+            <Link href="/" style={{ color: "var(--dim)", fontSize: 12, letterSpacing: "0.1em" }}>← دليل التجار</Link>
           </div>
 
           <h1>{m.name_ar}</h1>
@@ -117,11 +104,7 @@ export default async function MerchantPage({ params }: { params: { slug: string 
             ) : (
               <span className="badge unverified">PENDING VERIFICATION</span>
             )}
-            {m.founded_year && (
-              <span className="mono" style={{ color: "var(--dim)", fontSize: 12 }}>
-                EST. {m.founded_year}
-              </span>
-            )}
+            {m.founded_year && <span className="mono" style={{ color: "var(--dim)", fontSize: 12 }}>EST. {m.founded_year}</span>}
           </div>
 
           <div className="merchant-stats">
@@ -158,7 +141,6 @@ export default async function MerchantPage({ params }: { params: { slug: string 
             </p>
           )}
 
-          {/* روابط التواصل */}
           {(m.website || m.instagram || m.whatsapp) && (
             <div style={{ display: "flex", gap: 10, marginTop: 24, flexWrap: "wrap" }}>
               {m.website && <a href={m.website} target="_blank" rel="noopener nofollow" className="btn btn-ghost">الموقع</a>}
@@ -169,19 +151,28 @@ export default async function MerchantPage({ params }: { params: { slug: string 
         </div>
       </section>
 
-      {/* الـ CTA لكتابة تقييم — في المرحلة 2 سيصبح نموذج فعلي */}
       <section className="container" style={{ paddingTop: 40 }}>
-        <div className="form-section">
-          <h3>Write A Review · اكتب تجربتك</h3>
-          <p style={{ color: "var(--dim)", fontSize: 13, marginBottom: 18 }}>
-            شارك تجربتك الحقيقية مع {m.name_ar}. تقييمك يساعد عملاء آخرين ويبني سمعة المنصة.
-          </p>
-          <Link href={`/login?next=/${m.slug}`} className="btn btn-solid" style={{ display: "inline-block", padding: "12px 30px" }}>
-            سجّل دخولك لكتابة تقييم
-          </Link>
-        </div>
+        {!user ? (
+          <div className="form-section">
+            <h3>Write A Review · اكتبي تجربتكِ</h3>
+            <p style={{ color: "var(--dim)", fontSize: 13, marginBottom: 18 }}>
+              شاركي تجربتكِ الحقيقية مع {m.name_ar}. تقييمكِ يساعد عملاء آخرين ويبني سمعة المنصة.
+            </p>
+            <Link href={`/login?next=/${m.slug}`} className="btn btn-solid" style={{ display: "inline-block", padding: "12px 30px" }}>
+              سجّلي دخولكِ لكتابة تقييم
+            </Link>
+          </div>
+        ) : userHasReviewed ? (
+          <div className="form-section" style={{ borderColor: "rgba(196,136,42,0.4)" }}>
+            <h3>تم تقييم هذا التاجر مسبقاً</h3>
+            <p style={{ color: "var(--dim)", fontSize: 13 }}>
+              يمكنكِ تعديل تقييمكِ من <Link href="/dashboard" style={{ color: "var(--gold2)" }}>صفحة حسابكِ</Link> خلال ٣٠ يوماً من تاريخ النشر.
+            </p>
+          </div>
+        ) : (
+          <ReviewForm merchantId={m.id} reviewerId={user.id} reviewerName={reviewerName} />
+        )}
 
-        {/* قائمة التقييمات */}
         <div className="sec-head">
           <h2>Reviews</h2>
           <div className="count">{String(reviews.length).padStart(2, "0")} TOTAL</div>
@@ -190,7 +181,7 @@ export default async function MerchantPage({ params }: { params: { slug: string 
         {reviews.length === 0 ? (
           <div className="empty" style={{ border: "0.5px solid var(--b)" }}>
             <div className="empty-icon">∅</div>
-            <div>لا توجد تقييمات بعد · كن أول من يكتب تجربته</div>
+            <div>لا توجد تقييمات بعد · كوني أول من تكتب تجربتها</div>
           </div>
         ) : (
           <div>
