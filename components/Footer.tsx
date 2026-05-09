@@ -17,7 +17,7 @@ export default function Footer() {
         <p>The Global Agarwood Reference · المرجع العالمي للعود</p>
         <div className="links">
           <Link href="/">الأسعار</Link>
-          <Link href="/directory">دليل التجار</Link>
+          <Link href="/">دليل التجار</Link>
           <Link href="/#how">كيف يعمل؟</Link>
           <Link href="/privacy">سياسة الخصوصية</Link>
         </div>

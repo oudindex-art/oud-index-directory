@@ -26,11 +26,11 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   return {
     title,
     description,
-    alternates: { canonical: `/directory/${merchant.slug}` },
+    alternates: { canonical: `/${merchant.slug}` },
     openGraph: {
       title: `${merchant.name_ar} · Oud Index`,
       description,
-      url: `/directory/${merchant.slug}`,
+      url: `/${merchant.slug}`,
     },
   };
 }
@@ -65,7 +65,7 @@ export default async function MerchantPage({ params }: { params: { slug: string 
     name: m.name_ar,
     alternateName: m.name_en || undefined,
     description: m.description_ar,
-    url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://oudindex.com"}/directory/${m.slug}`,
+    url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://oudindex.com"}/${m.slug}`,
     address: {
       "@type": "PostalAddress",
       addressCountry: m.country_code || m.country,
@@ -101,7 +101,7 @@ export default async function MerchantPage({ params }: { params: { slug: string 
       <section className="merchant-hero">
         <div className="container">
           <div style={{ marginBottom: 16 }}>
-            <Link href="/directory" style={{ color: "var(--dim)", fontSize: 12, letterSpacing: "0.1em" }}>
+            <Link href="/" style={{ color: "var(--dim)", fontSize: 12, letterSpacing: "0.1em" }}>
               ← دليل التجار
             </Link>
           </div>
@@ -176,7 +176,7 @@ export default async function MerchantPage({ params }: { params: { slug: string 
           <p style={{ color: "var(--dim)", fontSize: 13, marginBottom: 18 }}>
             شارك تجربتك الحقيقية مع {m.name_ar}. تقييمك يساعد عملاء آخرين ويبني سمعة المنصة.
           </p>
-          <Link href={`/login?next=/directory/${m.slug}`} className="btn btn-solid" style={{ display: "inline-block", padding: "12px 30px" }}>
+          <Link href={`/login?next=/${m.slug}`} className="btn btn-solid" style={{ display: "inline-block", padding: "12px 30px" }}>
             سجّل دخولك لكتابة تقييم
           </Link>
         </div>

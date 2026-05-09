@@ -35,7 +35,7 @@ export default async function Header() {
 
         <nav className="nav-links">
           <Link href="/">الأسعار</Link>
-          <Link href="/directory" className="on">دليل التجار</Link>
+          <Link href="/" className="on">دليل التجار</Link>
           <Link href="/#how">كيف يعمل؟</Link>
         </nav>
 
