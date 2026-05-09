@@ -9,7 +9,6 @@ const nextConfig = {
       { protocol: "https", hostname: "*.supabase.co" },
     ],
   },
-  // إعدادات SEO و i18n
   async redirects() {
     return [];
   },
@@ -20,4 +19,4 @@ const nextConfig = {
         headers: [
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "X-Frame-Options", value: "SAMEORIGIN" },
-          { key: "Referrer-Policy"
+          { key: "Referrer-Policy", value: "strict-origin-when-cro
