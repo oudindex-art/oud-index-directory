@@ -340,7 +340,7 @@ button { font-family: inherit; cursor: pointer; }
 .card-id-wrap { flex: 1; min-width: 0; }
 .card-name {
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 500;
   color: var(--cream);
   margin-bottom: 6px;
   line-height: 1.3;
@@ -759,4 +759,26 @@ button { font-family: inherit; cursor: pointer; }
   .hero { padding: 50px 0 30px; }
   .filter-label { width: auto; }
   .merchant-stats { grid-template-columns: 1fr 1fr; }
+}
+
+/* ============== FIX: Card name prominent display ============== */
+.card-name-prominent {
+  font-family: 'IBM Plex Sans Arabic', system-ui, sans-serif !important;
+  font-size: 19px !important;
+  font-weight: 700 !important;
+  color: var(--gold2) !important;
+  line-height: 1.35 !important;
+  margin-bottom: 8px !important;
+  display: block !important;
+}
+
+.card-name-en {
+  font-family: 'Cinzel', serif !important;
+  font-size: 11px !important;
+  font-weight: 400 !important;
+  color: var(--dim) !important;
+  letter-spacing: 0.15em !important;
+  text-transform: uppercase !important;
+  margin-bottom: 12px !important;
+  display: block !important;
 }
