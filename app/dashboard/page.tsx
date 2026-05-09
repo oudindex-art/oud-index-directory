@@ -76,12 +76,12 @@ export default async function DashboardPage() {
           </div>
         ) : (
           <div className="form-section" style={{ textAlign: "center", padding: 30 }}>
-            <h3 style={{ marginBottom: 12 }}>لا يوجد متجر مسجّل لكِ</h3>
+            <h3 style={{ marginBottom: 12 }}>لا يوجد متجر مسجّل لك</h3>
             <p style={{ color: "var(--dim)", fontSize: 13, marginBottom: 18 }}>
-              هل أنتِ تاجرة عود؟ أضيفي متجركِ مجاناً وابدئي في استقبال التقييمات والعملاء.
+              هل أنت تاجرة عود؟ أضف متجرك مجاناً وابدأ في استقبال التقييمات والعملاء.
             </p>
             <Link href="/dashboard/add-merchant" className="btn btn-solid">
-              + أضيفي متجركِ
+              + أضف متجرك
             </Link>
           </div>
         )}

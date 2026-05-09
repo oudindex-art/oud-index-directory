@@ -56,7 +56,7 @@ export default function AddMerchantForm({ userId }: { userId: string }) {
     setErr(null);
 
     if (types.length === 0) {
-      setErr("اختاري تخصصاً واحداً على الأقل");
+      setErr("اختر تخصصاً واحداً على الأقل");
       return;
     }
 
@@ -137,7 +137,7 @@ export default function AddMerchantForm({ userId }: { userId: string }) {
       </div>
 
       <div className="field">
-        <label>التخصص (اختاري كل ما ينطبق) *</label>
+        <label>التخصص (اختر كل ما ينطبق) *</label>
         <div className="types-grid" style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
           {TYPES.map((t) => (
             <label
@@ -161,8 +161,8 @@ export default function AddMerchantForm({ userId }: { userId: string }) {
       </div>
 
       <div className="field">
-        <label>وصف قصير عن متجركِ *</label>
-        <textarea required value={descAr} onChange={(e) => setDescAr(e.target.value)} placeholder="ما الذي يميّز متجركِ؟ منذ متى وأنتِ في تجارة العود؟" minLength={20} maxLength={500} />
+        <label>وصف قصير عن متجرك *</label>
+        <textarea required value={descAr} onChange={(e) => setDescAr(e.target.value)} placeholder="ما الذي يميّز متجرك؟ منذ متى وأنت في تجارة العود؟" minLength={20} maxLength={500} />
       </div>
 
       <div className="field">
@@ -191,7 +191,7 @@ export default function AddMerchantForm({ userId }: { userId: string }) {
       </button>
 
       <p className="form-foot">
-        سيظهر متجركِ بشارة "غير موثّق" بعد النشر. للحصول على شارة "موثّق" تواصلي مع فريق مؤشر العود.
+        سيظهر متجرك بشارة "غير موثّق" بعد النشر. للحصول على شارة "موثّق" تواصل مع فريق مؤشر العود.
       </p>
     </form>
   );

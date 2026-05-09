@@ -20,10 +20,10 @@ export default async function AddMerchantPage() {
               ← لوحة التحكم
             </Link>
           </div>
-          <h1>أضيفي متجركِ</h1>
+          <h1>أضف متجرك</h1>
           <div className="en-name">Add Your Shop</div>
           <p style={{ color: "var(--dim)", fontSize: 14, lineHeight: 1.85, maxWidth: 640, marginTop: 16 }}>
-            مجاني تماماً. سيظهر متجركِ بشارة "غير موثّق" حتى تستكملي خطوات التحقق (السجل التجاري + مكالمة فيديو قصيرة).
+            مجاني تماماً. سيظهر متجرك بشارة "غير موثّق" حتى تستكملي خطوات التحقق (السجل التجاري + مكالمة فيديو قصيرة).
           </p>
         </div>
       </section>

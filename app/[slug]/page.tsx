@@ -154,19 +154,19 @@ export default async function MerchantPage({ params }: { params: { slug: string 
       <section className="container" style={{ paddingTop: 40 }}>
         {!user ? (
           <div className="form-section">
-            <h3>Write A Review · اكتبي تجربتكِ</h3>
+            <h3>Write A Review · اكتب تجربتك</h3>
             <p style={{ color: "var(--dim)", fontSize: 13, marginBottom: 18 }}>
-              شاركي تجربتكِ الحقيقية مع {m.name_ar}. تقييمكِ يساعد عملاء آخرين ويبني سمعة المنصة.
+              شارك تجربتك الحقيقية مع {m.name_ar}. تقييمك يساعد عملاء آخرين ويبني سمعة المنصة.
             </p>
             <Link href={`/login?next=/${m.slug}`} className="btn btn-solid" style={{ display: "inline-block", padding: "12px 30px" }}>
-              سجّلي دخولكِ لكتابة تقييم
+              سجّل دخولك لكتابة تقييم
             </Link>
           </div>
         ) : userHasReviewed ? (
           <div className="form-section" style={{ borderColor: "rgba(196,136,42,0.4)" }}>
             <h3>تم تقييم هذا التاجر مسبقاً</h3>
             <p style={{ color: "var(--dim)", fontSize: 13 }}>
-              يمكنكِ تعديل تقييمكِ من <Link href="/dashboard" style={{ color: "var(--gold2)" }}>صفحة حسابكِ</Link> خلال ٣٠ يوماً من تاريخ النشر.
+              يمكنك تعديل تقييمك من <Link href="/dashboard" style={{ color: "var(--gold2)" }}>صفحة حسابك</Link> خلال ٣٠ يوماً من تاريخ النشر.
             </p>
           </div>
         ) : (
@@ -181,7 +181,7 @@ export default async function MerchantPage({ params }: { params: { slug: string 
         {reviews.length === 0 ? (
           <div className="empty" style={{ border: "0.5px solid var(--b)" }}>
             <div className="empty-icon">∅</div>
-            <div>لا توجد تقييمات بعد · كوني أول من تكتب تجربتها</div>
+            <div>لا توجد تقييمات بعد · كن أول من تكتب تجربتها</div>
           </div>
         ) : (
           <div>

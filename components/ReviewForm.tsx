@@ -26,7 +26,7 @@ export default function ReviewForm({ merchantId, reviewerId, reviewerName }: Pro
     setErr(null);
 
     if (rating === 0) {
-      setErr("اختاري عدد النجوم أولاً");
+      setErr("اختر عدد النجوم أولاً");
       return;
     }
     if (text.trim().length < 10) {
@@ -47,7 +47,7 @@ export default function ReviewForm({ merchantId, reviewerId, reviewerName }: Pro
 
     if (error) {
       if (error.code === "23505") {
-        setErr("لقد قيّمتِ هذا التاجر مسبقاً. يمكنكِ تعديل تقييمكِ من حسابكِ.");
+        setErr("لقد قيّمت هذا التاجر مسبقاً. يمكنك تعديل تقييمك من حسابك.");
       } else {
         setErr(error.message);
       }
@@ -64,9 +64,9 @@ export default function ReviewForm({ merchantId, reviewerId, reviewerName }: Pro
   if (success) {
     return (
       <div className="form-section" style={{ borderColor: "rgba(76,175,80,0.4)", background: "rgba(76,175,80,0.06)" }}>
-        <div style={{ color: "var(--up)", fontSize: 14, marginBottom: 8 }}>✓ شكراً لمشاركة تجربتكِ</div>
+        <div style={{ color: "var(--up)", fontSize: 14, marginBottom: 8 }}>✓ شكراً لمشاركة تجربتك</div>
         <p style={{ color: "var(--cream)", fontSize: 13, lineHeight: 1.7 }}>
-          تقييمكِ نُشر بنجاح. أنتِ تساعدين مجتمع عشاق العود على اختيار أفضل التجار.
+          تقييمك نُشر بنجاح. أنت تساعد مجتمع عشاق العود على اختيار أفضل التجار.
         </p>
         <button
           onClick={() => setSuccess(false)}
@@ -81,7 +81,7 @@ export default function ReviewForm({ merchantId, reviewerId, reviewerName }: Pro
 
   return (
     <form onSubmit={submit} className="form-section">
-      <h3>اكتبي تجربتكِ</h3>
+      <h3>اكتب تجربتك</h3>
 
       {err && (
         <div style={{ background: "rgba(224,112,112,0.1)", border: "0.5px solid var(--down)", color: "var(--down)", padding: "10px 14px", marginBottom: 14, fontSize: 13 }}>
@@ -90,7 +90,7 @@ export default function ReviewForm({ merchantId, reviewerId, reviewerName }: Pro
       )}
 
       <div className="field">
-        <label>تقييمكِ (من ٥)</label>
+        <label>تقييمك (من ٥)</label>
         <div className="star-input" data-rating={rating}>
           {[1, 2, 3, 4, 5].map((i) => (
             <span
@@ -108,14 +108,14 @@ export default function ReviewForm({ merchantId, reviewerId, reviewerName }: Pro
       </div>
 
       <div className="field">
-        <label>تجربتكِ مع التاجر</label>
+        <label>تجربتك مع التاجر</label>
         <textarea
           required
           minLength={10}
           maxLength={2000}
           value={text}
           onChange={(e) => setText(e.target.value)}
-          placeholder="اكتبي تجربتكِ بصدق — ما أعجبكِ، ما لم يعجبكِ، الجودة، السعر، الخدمة..."
+          placeholder="اكتب تجربتك بصدق — ما أعجبك، ما لم يعجبك، الجودة، السعر، الخدمة..."
         />
         <div style={{ fontSize: 11, color: "var(--dimmer)", marginTop: 6, textAlign: "left" }}>{text.length} / 2000</div>
       </div>
@@ -127,7 +127,7 @@ export default function ReviewForm({ merchantId, reviewerId, reviewerName }: Pro
             checked={verified}
             onChange={(e) => setVerified(e.target.checked)}
           />
-          <span>اشتريت من هذا التاجر فعلاً (سيمنحكِ شارة "عميل موثّق")</span>
+          <span>اشتريت من هذا التاجر فعلاً (سيمنحك شارة "عميل موثّق")</span>
         </label>
       </div>
 
@@ -136,7 +136,7 @@ export default function ReviewForm({ merchantId, reviewerId, reviewerName }: Pro
       </button>
 
       <p className="form-foot">
-        يمكنكِ تعديل تقييمكِ خلال ٣٠ يوماً من الآن. التاجر يستطيع الرد عليه لكن لا يستطيع حذفه.
+        يمكنك تعديل تقييمك خلال ٣٠ يوماً من الآن. التاجر يستطيع الرد عليه لكن لا يستطيع حذفه.
       </p>
     </form>
   );

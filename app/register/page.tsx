@@ -67,7 +67,7 @@ export default function RegisterPage() {
           <div className="hero-eyebrow" style={{ color: "var(--up)", borderColor: "var(--up)" }}>✓ Check Your Email</div>
           <h1 style={{ fontSize: "28px", marginBottom: 12 }}>تم إرسال رابط التحقق</h1>
           <p className="lead" style={{ marginBottom: 30 }}>
-            افتحي إيميلكِ <strong style={{ color: "var(--cream)" }}>{email}</strong> واضغطي رابط التفعيل لتسجيل الدخول. لو لم تجدي الرسالة، تحققي من البريد المزعج.
+            افتح إيميلك <strong style={{ color: "var(--cream)" }}>{email}</strong> واضغط رابط التفعيل لتسجيل الدخول. لو لم تجدي الرسالة، تحققي من البريد المزعج.
           </p>
           <Link href="/login" className="btn btn-ghost">العودة لتسجيل الدخول</Link>
         </div>
@@ -81,7 +81,7 @@ export default function RegisterPage() {
         <div className="hero-eyebrow">{asMerchant ? "Merchant Registration · تسجيل تاجر" : "Create Account · إنشاء حساب"}</div>
         <h1 style={{ fontSize: "30px", marginBottom: 8 }}>{asMerchant ? "Add Your Shop" : "Join Oud Index"}</h1>
         <div className="ar-title" style={{ fontSize: "20px", marginBottom: 30 }}>
-          {asMerchant ? "أضيفي متجرك إلى الدليل" : "انضمي إلى مؤشر العود"}
+          {asMerchant ? "أضف متجرك إلى الدليل" : "انضم إلى مؤشر العود"}
         </div>
 
         {err && (
@@ -107,7 +107,7 @@ export default function RegisterPage() {
           <button type="submit" className="submit-btn" disabled={loading}>
             {loading ? "..." : "إنشاء الحساب"}
           </button>
-          <p className="form-foot">سيصلكِ إيميل لتفعيل الحساب.</p>
+          <p className="form-foot">سيصلك إيميل لتفعيل الحساب.</p>
         </form>
 
         <div style={{ textAlign: "center", margin: "20px 0", color: "var(--dimmer)", fontSize: 11, letterSpacing: "0.2em" }}>
@@ -125,9 +125,9 @@ export default function RegisterPage() {
         </button>
 
         <p style={{ textAlign: "center", marginTop: 30, color: "var(--dim)", fontSize: 13 }}>
-          لديكِ حساب؟{" "}
+          لديك حساب؟{" "}
           <Link href={`/login?next=${encodeURIComponent(next)}`} style={{ color: "var(--gold2)" }}>
-            سجّلي الدخول
+            سجّل الدخول
           </Link>
         </p>
 
@@ -135,7 +135,7 @@ export default function RegisterPage() {
           <p style={{ textAlign: "center", marginTop: 16, color: "var(--dimmer)", fontSize: 12 }}>
             تاجر؟{" "}
             <Link href="/register?merchant=1" style={{ color: "var(--gold2)" }}>
-              سجّلي كتاجر
+              سجّل كتاجر
             </Link>
           </p>
         )}

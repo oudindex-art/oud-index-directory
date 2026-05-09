@@ -46,7 +46,7 @@ export default function LoginPage() {
       <div className="container" style={{ maxWidth: 480 }}>
         <div className="hero-eyebrow">Sign In · تسجيل الدخول</div>
         <h1 style={{ fontSize: "32px", marginBottom: 8 }}>Welcome Back</h1>
-        <div className="ar-title" style={{ fontSize: "20px", marginBottom: 30 }}>أهلاً بعودتكِ</div>
+        <div className="ar-title" style={{ fontSize: "20px", marginBottom: 30 }}>أهلاً بعودتك</div>
 
         {err && (
           <div style={{ background: "rgba(224,112,112,0.1)", border: "0.5px solid var(--down)", color: "var(--down)", padding: "12px 16px", marginBottom: 20, fontSize: 13, textAlign: "right" }}>
@@ -84,9 +84,9 @@ export default function LoginPage() {
         </button>
 
         <p style={{ textAlign: "center", marginTop: 30, color: "var(--dim)", fontSize: 13 }}>
-          ليس لديكِ حساب؟{" "}
+          ليس لديك حساب؟{" "}
           <Link href={`/register?next=${encodeURIComponent(next)}`} style={{ color: "var(--gold2)" }}>
-            سجّلي الآن
+            سجّل الآن
           </Link>
         </p>
       </div>
