@@ -340,7 +340,7 @@ button { font-family: inherit; cursor: pointer; }
 .card-id-wrap { flex: 1; min-width: 0; }
 .card-name {
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 700;
   color: var(--cream);
   margin-bottom: 6px;
   line-height: 1.3;
