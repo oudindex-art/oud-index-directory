@@ -175,7 +175,7 @@ export default async function DirectoryPage({
           <h2>Help us grow the directory — Free</h2>
           <div className="ar-h2">ساعدنا في بناء الدليل — مجاناً</div>
           <p>هل تعرف تاجر عود يستحق الإدراج؟ أو هل أنت صاحب متجر تريد إضافته؟ أرسل المعلومات وسنُراجعها ونتحقق منها قبل النشر.</p>
-          <a href="/suggest-merchant.html" className="btn btn-solid">اقترح / أضف متجرك</a>
+          <a href="/suggest-merchant" className="btn btn-solid">اقترح / أضف متجرك</a>
           <div className="cta-perks">
             <div className="perk">إدراج مجاني</div>
             <div className="perk">دليل مستقل</div>
