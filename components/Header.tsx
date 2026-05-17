@@ -33,7 +33,7 @@ export default function Header() {
         </nav>
 
         <div className="nav-actions">
-          <a href="/suggest-merchant.html" className="btn">أضف متجرك</a>
+          <a href="/suggest-merchant" className="btn">أضف متجرك</a>
         </div>
       </div>
     </header>
