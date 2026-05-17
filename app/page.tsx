@@ -171,15 +171,15 @@ export default async function DirectoryPage({
       {/* CTA */}
       <section className="cta-band" style={{ marginTop: 60 }}>
         <div className="container">
-          <div className="eyebrow">For Merchants</div>
-          <h2>Join The Directory — Free</h2>
-          <div className="ar-h2">انضم إلى الدليل — مجاناً</div>
-          <p>اعرض متجرك أمام آلاف المهتمين بالعود حول العالم. لا رسوم، لا اشتراك، فقط سمعتك الحقيقية.</p>
-          <Link href="/register" className="btn btn-solid">سجّل متجرك الآن</Link>
+          <div className="eyebrow">Suggest a Merchant</div>
+          <h2>Help us grow the directory — Free</h2>
+          <div className="ar-h2">ساعدنا في بناء الدليل — مجاناً</div>
+          <p>هل تعرف تاجر عود يستحق الإدراج؟ أو هل أنت صاحب متجر تريد إضافته؟ أرسل المعلومات وسنُراجعها ونتحقق منها قبل النشر.</p>
+          <a href="/suggest-merchant.html" className="btn btn-solid">اقترح / أضف متجرك</a>
           <div className="cta-perks">
-            <div className="perk">ملف تعريفي كامل</div>
-            <div className="perk">صور غير محدودة</div>
-            <div className="perk">رد على التقييمات</div>
+            <div className="perk">إدراج مجاني</div>
+            <div className="perk">دليل مستقل</div>
+            <div className="perk">مراجعة قبل النشر</div>
             <div className="perk">شارة موثّق</div>
           </div>
         </div>
