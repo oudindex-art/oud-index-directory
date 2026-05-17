@@ -1,22 +1,9 @@
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
 
-export default async function Header() {
-  const supabase = createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-
-  let isAdmin = false;
-  let isMerchant = false;
-  if (user) {
-    const { data } = await supabase
-      .from("profiles")
-      .select("is_admin, is_merchant")
-      .eq("id", user.id)
-      .single();
-    isAdmin = data?.is_admin ?? false;
-    isMerchant = data?.is_merchant ?? false;
-  }
-
+// Simplified header — no merchant accounts, no merchant login.
+// Single CTA: anyone (visitor OR merchant) can suggest/add a merchant via
+// /suggest-merchant.html (form goes to admin queue).
+export default function Header() {
   return (
     <header className="header">
       <div className="container nav">
@@ -46,26 +33,7 @@ export default async function Header() {
         </nav>
 
         <div className="nav-actions">
-          {!user ? (
-            <>
-              <Link href="/login" className="btn btn-ghost">دخول</Link>
-              <Link href="/register?merchant=1" className="btn">أضف متجرك</Link>
-            </>
-          ) : (
-            <>
-              {isAdmin && (
-                <Link href="/admin" className="btn btn-ghost">الأدمن</Link>
-              )}
-              <Link href="/dashboard" className="btn btn-ghost">
-                {isMerchant ? "متجري" : "حسابي"}
-              </Link>
-              <form action="/auth/signout" method="post" style={{ display: "inline" }}>
-                <button type="submit" className="btn" style={{ borderColor: "var(--down)", color: "var(--down)" }}>
-                  خروج
-                </button>
-              </form>
-            </>
-          )}
+          <a href="/suggest-merchant.html" className="btn">أضف متجرك</a>
         </div>
       </div>
     </header>
